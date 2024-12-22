@@ -1,11 +1,17 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
-const mongoUrl="mongodb+srv://sorabhgwala:sorabh#2004@cluster0.klhgt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+// MongoDB connection URL
+const mongoUrl = "mongodb://127.0.0.1:27017/Homecare";
 
-const connectDb=()=>{
-    
-    return mongoose.connect(mongoUrl);
-}
+const connectDb = async () => {
+    try {
+     const connection =   await mongoose.connect(mongoUrl);
+        console.log(`Connected to DB: ${connection.connection.name} at ${mongoUrl}`);
+        return true;
+    } catch (error) {
+        console.error("Error connecting to database:", error);
+        return false; 
+    }
+};
 
-
-module.exports={connectDb}
+export default connectDb;
